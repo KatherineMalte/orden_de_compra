@@ -42,7 +42,7 @@ def buscar_numeros(
         where.append("lte_int = :lote_int")
         params["lote_int"] = lote_int
     if orden_compra:
-        where.append("orden_cmpra_int = :orden_compra")
+        where.append("nmro_pddo = :orden_compra")
         params["orden_compra"] = orden_compra
 
     sql = (
@@ -57,9 +57,9 @@ def cargar_pedido(numero_pedido: int) -> dict | None:
     """Cabecera y líneas de un pedido. None si no existe."""
     cab = Conexion.consultar(
         """
-        SELECT a.nmro_pddo, a.orden_cmpra_int, a.idntfccion, c.nmbre_prvdor,
+        SELECT a.nmro_pddo, a.nmro_pddo, a.idntfccion, c.nmbre_prvdor,
                a.fcha_pddo, a.fcha_pctda, a.estdo, a.lte_int, a.trm, a.tpo_ped,
-               a.bdga_dstno, a.realizado, a.recibido, a.fcha_recibido
+               a.bdga_dstno, a.realizado, a.recibido, a.fcha_pddo
         FROM pddos_prvdor a
         LEFT JOIN prvdres c ON c.idntfccion = a.idntfccion
         WHERE a.nmro_pddo = :n
